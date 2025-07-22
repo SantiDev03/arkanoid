@@ -42,3 +42,8 @@ class Ball(pygame.sprite.Sprite):
                 new_ball = Ball(self.paddle, self.blocks, self.all_sprites, self.balls)
                 self.all_sprites.add(new_ball)
                 self.balls.add(new_ball) #nueva pelota
+
+            return 'block_destroyed'
+        
+        return None
+
