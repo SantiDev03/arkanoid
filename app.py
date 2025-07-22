@@ -11,8 +11,8 @@ pygame.init() #inicializamos el juego
 pygame.mixer.init()
 
 script_dir = os.path.dirname(__file__)
-background_music_path = os.path.join(script_dir, "assets", "sounds", "himno-nacional-argentino.wav")
 
+background_music_path = os.path.join(script_dir, "assets", "sounds", "himno-nacional-argentino.wav")
 try:
     pygame.mixer.music.load(background_music_path)
     print(f"Música de fondo cargada: {background_music_path}")
@@ -30,11 +30,25 @@ except pygame.error as e:
     print(f"Error al cargar el sonido de golpe: {e}")
     print(f"Intentando cargar desde: {hit_sound_path}")
 
-
-
 screen = pygame.display.set_mode((WIDTH, HEIGHT)) #configuramos la ventana donde se va a ejecutar el juego
 pygame.display.set_caption("Arkanoid") #nombre del juego para que aparezca arriba
 clock = pygame.time.Clock() # Objeto Clock para controlar el framerate
+
+background_image_path = os.path.join(script_dir, "assets", "images", "diegote.jpg")
+background_image = None
+
+try:
+    background_image = pygame.image.load(background_image_path).convert()
+    # Escalamos la imagen para que se ajuste al tamaño de la pantalla
+    background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
+    print(f"Imagen de fondo cargada exitosamente: {background_image_path}")
+except pygame.error as e:
+    print(f"ERROR: Pygame no pudo cargar la imagen de fondo. Mensaje: {e}")
+    print(f"Asegúrate de que el archivo no esté corrupto y sea un formato compatible (.jpg, .png).")
+    print("Se usará un fondo negro en su lugar.")
+
+
+
 
 #CREAMOS LOS GRUPOS (con esto podemos manejar muchos objetos a la vez)
 all_sprites = pygame.sprite.Group()
@@ -78,11 +92,14 @@ while running:
         all_sprites.add(new_ball)
         balls.add(new_ball)
 
-    #dibujamos los elementos de la pantalla
-    
-    screen.fill(BLACK) #fondo negro
-    all_sprites.draw(screen) #dibujamos el escenario 
-    pygame.display.flip()  #actualizamos la pantalla
+    # --- Dibujamos los elementos de la pantalla ---
+    if background_image: # Si la imagen de fondo se cargó correctamente
+        screen.blit(background_image, (0, 0)) # Dibujamos la imagen de fondo en la posición (0,0)
+    else:
+        screen.fill(BLACK) # Si no hay imagen, el fondo sigue siendo negro
+
+    all_sprites.draw(screen) # Dibujamos el escenario (paleta, pelotas, bloques)
+    pygame.display.flip()  # Actualizamos la pantalla
 
 
 pygame.quit() #cerramos el juego
