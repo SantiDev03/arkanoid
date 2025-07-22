@@ -34,9 +34,10 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT)) #configuramos la ventana donde
 pygame.display.set_caption("Arkanoid") #nombre del juego para que aparezca arriba
 clock = pygame.time.Clock() # Objeto Clock para controlar el framerate
 
-background_image_path = os.path.join(script_dir, "assets", "images", "diegote.jpg")
+background_image_path = os.path.join(script_dir, "assets", "images", "messi.jpg") 
 background_image = None
-
+#Añadimos la imagen luego de inicializar el juego
+#Asi se añade el fondo cuando se actualice la pantalla.
 try:
     background_image = pygame.image.load(background_image_path).convert()
     # Escalamos la imagen para que se ajuste al tamaño de la pantalla
