@@ -7,9 +7,9 @@ from ball import Ball
 from block import Block
 
 pygame.init() #inicializamos el juego
-score = 0
-lives = 3
-font = pygame.font.SysFont(None, 36)
+score = 0  # Guarda los puntos
+lives = 3  # Guarda las vidas
+font = pygame.font.SysFont(None, 36)   # Fuente para mostrar texto en pantalla
 screen = pygame.display.set_mode((WIDTH, HEIGHT)) #configuramos la ventana donde se va a ejecutar el juego
 pygame.display.set_caption("Arkanoid") #nombre del juego para que aparezca arriba
 clock = pygame.time.Clock() #?
@@ -67,8 +67,9 @@ while running:
     #dibujamos los elementos de la pantalla
     screen.fill(BLACK) #fondo negro
     all_sprites.draw(screen) #dibujamos el escenario 
+    lives_color = (255, 0, 0) if lives <= 1 else (255, 255, 255)
     score_text = font.render(f"Puntaje: {score}", True, (255, 255, 255))
-    lives_text = font.render(f"Vidas: {lives}", True, (255, 255, 255))
+    lives_text = font.render(f"Vidas: {lives}", True, lives_color)
     screen.blit(score_text, (10, 10))
     screen.blit(lives_text, (WIDTH - 130, 10))
     pygame.display.flip()  #actualizamos la pantalla
