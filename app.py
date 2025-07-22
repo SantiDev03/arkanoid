@@ -36,8 +36,10 @@ clock = pygame.time.Clock() # Objeto Clock para controlar el framerate
 
 background_image_path = os.path.join(script_dir, "assets", "images", "messi.jpg") 
 background_image = None
+
 #Añadimos la imagen luego de inicializar el juego
 #Asi se añade el fondo cuando se actualice la pantalla.
+
 try:
     background_image = pygame.image.load(background_image_path).convert()
     # Escalamos la imagen para que se ajuste al tamaño de la pantalla
@@ -48,6 +50,20 @@ except pygame.error as e:
     print(f"Asegúrate de que el archivo no esté corrupto y sea un formato compatible (.jpg, .png).")
     print("Se usará un fondo negro en su lugar.")
 
+pelota_image_path = os.path.join(script_dir, "assets","images", "pelota.png")
+pelota_ball_image = None
+try:
+    # Carga la imagen y la convierte para optimización
+    pelota_ball_image = pygame.image.load(pelota_image_path).convert_alpha() 
+    # Escala la imagen al tamaño deseado para la pelota (ej. 15x15 píxeles)
+    pelota_ball_image = pygame.transform.scale(pelota_ball_image, (35, 35))
+
+    print(f"Imagen del mate cargada exitosamente para la pelota: {pelota_image_path}")
+except pygame.error as e:
+    print(f"ERROR: Pygame no pudo cargar la imagen del mate para la pelota. Mensaje: {e}")
+    print(f"Asegúrate de que el archivo 'pelota.png' esté en la carpeta 'assets'.")
+    print("La pelota se dibujará como un círculo blanco.")
+    # Si la imagen no se carga, mate_ball_image seguirá siendo None.
 
 
 
@@ -67,7 +83,7 @@ for row in range(5):
         all_sprites.add(block)
         blocks.add(block)
 
-ball = Ball(paddle, blocks, all_sprites, balls,hit_sound=hit_ball_in_block)
+ball = Ball(paddle, blocks, all_sprites, balls,ball_image= pelota_ball_image,hit_sound=hit_ball_in_block)
 all_sprites.add(ball)
 balls.add(ball)
 
@@ -89,7 +105,7 @@ while running:
     #esto es para crear pelotas nuevas
     #esto despues se tiene que cambiar, cuando la pelota sea 0 se tiene que quitar una vida o hace un game over
     if len(balls) == 0: #si no hay pelotas se crea una nueva 
-        new_ball = Ball(paddle, blocks, all_sprites, balls)
+        new_ball = Ball(paddle, blocks, all_sprites, balls, hit_sound=hit_ball_in_block, ball_image=pelota_ball_image)
         all_sprites.add(new_ball)
         balls.add(new_ball)
 
