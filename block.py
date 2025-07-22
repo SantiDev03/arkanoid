@@ -17,7 +17,7 @@ class Block(pygame.sprite.Sprite):
         )[0]
         self.color = color_choice
 
-        # Ruta de imagen según color
+        # Ruta de imagen según el color 
         image_filename = f"block_{color_choice}.jpg"
         image_path = os.path.join(image_dir, image_filename)
 
