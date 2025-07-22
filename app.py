@@ -5,11 +5,36 @@ from config import WIDTH, HEIGHT, FPS, BLACK
 from paddle import Paddle
 from ball import Ball
 from block import Block
-
+import os
 pygame.init() #inicializamos el juego
+
+pygame.mixer.init()
+
+script_dir = os.path.dirname(__file__)
+background_music_path = os.path.join(script_dir, "assets", "sounds", "himno-nacional-argentino.wav")
+
+try:
+    pygame.mixer.music.load(background_music_path)
+    print(f"Música de fondo cargada: {background_music_path}")
+except pygame.error as e:
+    print(f"Error al cargar la música de fondo: {e}")
+    print(f"Intentando cargar desde: {background_music_path}")
+pygame.mixer.music.play(-1)
+
+hit_sound_path = os.path.join(script_dir, "assets", "sounds", "arkanoid-sfx-1-101soundboards.mp3")
+hit_ball_in_block = None # Inicializamos la variable a None
+try:
+    hit_ball_in_block = pygame.mixer.Sound(hit_sound_path)
+    print(f"Sonido de golpe cargado: {hit_sound_path}")
+except pygame.error as e:
+    print(f"Error al cargar el sonido de golpe: {e}")
+    print(f"Intentando cargar desde: {hit_sound_path}")
+
+
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT)) #configuramos la ventana donde se va a ejecutar el juego
 pygame.display.set_caption("Arkanoid") #nombre del juego para que aparezca arriba
-clock = pygame.time.Clock() #?
+clock = pygame.time.Clock() # Objeto Clock para controlar el framerate
 
 #CREAMOS LOS GRUPOS (con esto podemos manejar muchos objetos a la vez)
 all_sprites = pygame.sprite.Group()
@@ -27,7 +52,7 @@ for row in range(5):
         all_sprites.add(block)
         blocks.add(block)
 
-ball = Ball(paddle, blocks, all_sprites, balls)
+ball = Ball(paddle, blocks, all_sprites, balls,hit_sound=hit_ball_in_block)
 all_sprites.add(ball)
 balls.add(ball)
 
@@ -54,8 +79,10 @@ while running:
         balls.add(new_ball)
 
     #dibujamos los elementos de la pantalla
+    
     screen.fill(BLACK) #fondo negro
     all_sprites.draw(screen) #dibujamos el escenario 
     pygame.display.flip()  #actualizamos la pantalla
+
 
 pygame.quit() #cerramos el juego
