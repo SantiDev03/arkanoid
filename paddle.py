@@ -7,6 +7,7 @@ class Paddle(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
+
         # Ruta a la imagen de la copa
         script_dir = os.path.dirname(__file__)
         image_path = os.path.join(script_dir, "assets", "images", "paddle", "copa.png")
