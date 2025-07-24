@@ -156,3 +156,4 @@ while corriendo:
     pygame.display.flip()
     clock.tick(60)
 
+

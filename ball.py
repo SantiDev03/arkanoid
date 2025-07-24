@@ -55,3 +55,8 @@ class Ball(pygame.sprite.Sprite):
                 #Instanciamos hit_sound, para que las pelotas que se agreguen, tambien reproduzcan el sonido de impacto.
                 self.all_sprites.add(new_ball)
                 self.balls.add(new_ball) #nueva pelota
+
+            return 'block_destroyed'
+        
+        return None
+
