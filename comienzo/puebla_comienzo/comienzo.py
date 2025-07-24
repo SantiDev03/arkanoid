@@ -106,7 +106,7 @@ while corriendo:
                 estado = "jugando"
                 puntaje = 0
 
-        pantalla.blit(texto_titulo_menu, rect_titulo_menu)
+        pantalla.blit(texto_titulo_menu, rect_titulo_menu,fondo)
         pygame.draw.rect(pantalla, color_boton, boton_play_rect, border_radius=10)
         pantalla.blit(texto_play, rect_texto_play)
 
@@ -156,21 +156,3 @@ while corriendo:
     pygame.display.flip()
     clock.tick(60)
 
-
-# import pygame
-# pygame.init()
-
-# pantalla = pygame.display.set_mode((800, 600))
-# fondo = pygame.image.load("fondo.juego.jpg").convert()
-# fondo = pygame.transform.scale(fondo, (800, 600))
-
-# corriendo = True
-# while corriendo:
-#     for evento in pygame.event.get():
-#         if evento.type == pygame.QUIT:
-#             corriendo = False
-
-#     pantalla.blit(fondo, (0, 0))
-#     pygame.display.flip()
-
-# pygame.quit()
