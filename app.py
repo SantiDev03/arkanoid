@@ -9,6 +9,7 @@ from block import Block
 import sys
 import random
 import os
+#inicializamos el juego
 pygame.init() #inicializamos el juego
 
 pygame.mixer.init()
