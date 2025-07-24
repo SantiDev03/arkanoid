@@ -7,6 +7,9 @@ from ball import Ball
 from block import Block
 
 pygame.init() #inicializamos el juego
+score = 0  # Guarda los puntos
+lives = 3  # Guarda las vidas
+font = pygame.font.SysFont(None, 36)   # Fuente para mostrar texto en pantalla
 screen = pygame.display.set_mode((WIDTH, HEIGHT)) #configuramos la ventana donde se va a ejecutar el juego
 pygame.display.set_caption("Argenoid") #nombre del juego para que aparezca arriba
 clock = pygame.time.Clock() #?
@@ -44,18 +47,31 @@ while running:
 
     paddle.update(keys) # con esto verificamos si se mueve la paleta
     for ball in list(balls):
-        ball.update() #actualizamos el estado de la pelota
+        result = ball.update()  # Acá guardás el resultado
+        if result == 'block_destroyed':
+            score += 10
 
     #esto es para crear pelotas nuevas
     #esto despues se tiene que cambiar, cuando la pelota sea 0 se tiene que quitar una vida o hace un game over
-    if len(balls) == 0: #si no hay pelotas se crea una nueva 
-        new_ball = Ball(paddle, blocks, all_sprites, balls)
-        all_sprites.add(new_ball)
-        balls.add(new_ball)
+    if len(balls) == 0:
+        lives -= 1
+        if lives > 0:
+            new_ball = Ball(paddle, blocks, all_sprites, balls)
+            all_sprites.add(new_ball)
+            balls.add(new_ball)
+        else:
+            print("GAME OVER")
+            running = False
+
 
     #dibujamos los elementos de la pantalla
     screen.fill(BLACK) #fondo negro
     all_sprites.draw(screen) #dibujamos el escenario 
+    lives_color = (255, 0, 0) if lives <= 1 else (255, 255, 255)
+    score_text = font.render(f"Puntaje: {score}", True, (255, 255, 255))
+    lives_text = font.render(f"Vidas: {lives}", True, lives_color)
+    screen.blit(score_text, (10, 10))
+    screen.blit(lives_text, (WIDTH - 130, 10))
     pygame.display.flip()  #actualizamos la pantalla
 
 pygame.quit() #cerramos el juego
