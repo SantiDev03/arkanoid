@@ -8,7 +8,7 @@ from block import Block
 
 pygame.init() #inicializamos el juego
 screen = pygame.display.set_mode((WIDTH, HEIGHT)) #configuramos la ventana donde se va a ejecutar el juego
-pygame.display.set_caption("Arkanoid") #nombre del juego para que aparezca arriba
+pygame.display.set_caption("Argenoid") #nombre del juego para que aparezca arriba
 clock = pygame.time.Clock() #?
 
 #CREAMOS LOS GRUPOS (con esto podemos manejar muchos objetos a la vez)
@@ -59,3 +59,4 @@ while running:
     pygame.display.flip()  #actualizamos la pantalla
 
 pygame.quit() #cerramos el juego
+
