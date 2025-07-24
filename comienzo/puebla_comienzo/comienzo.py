@@ -157,20 +157,4 @@ while corriendo:
     clock.tick(60)
 
 
-# import pygame
-# pygame.init()
 
-# pantalla = pygame.display.set_mode((800, 600))
-# fondo = pygame.image.load("fondo.juego.jpg").convert()
-# fondo = pygame.transform.scale(fondo, (800, 600))
-
-# corriendo = True
-# while corriendo:
-#     for evento in pygame.event.get():
-#         if evento.type == pygame.QUIT:
-#             corriendo = False
-
-#     pantalla.blit(fondo, (0, 0))
-#     pygame.display.flip()
-
-# pygame.quit()
