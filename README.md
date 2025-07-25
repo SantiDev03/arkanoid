@@ -46,18 +46,31 @@ python app.py
 
 ## Capturas del Juego
 
-![Pantalla Principal](assets/images/capturas_juego/menu.jpeg)
+![Pantalla Principal](assets/images/capturas_juegos/menu.jpeg)
 *Pantalla principal con el menú.*
 
-![Gameplay](assets/images/capturas_juego/gameplay_1.jpeg)
-![Gameplay](assets/images/capturas_juego/gameplay_12.jpeg)
+![Gameplay](assets/images/capturas_juegos/gameplay_1.jpeg)
+![Gameplay](assets/images/capturas_juegos/gameplay_12.jpeg)
 *Partida en progreso mostrando la pelota, paddle y bloques.*
 
-![Game Over](assets/images/capturas_juego/game_over.jpeg)
+![Game Over](assets/images/capturas_juegos/game_over.jpeg)
 *Pantalla de Game Over.*
 
-![Ver Puntajes](assets/images/capturas_juego/view_score.jpeg)
+![Ver Puntajes](assets/images/capturas_juegos/view_score.jpeg)
 *Pantalla de Puntajes.*
+
+---
+
+## Reglas del Juego
+
+- Usa las flechas izquierda y derecha para mover el paddle.
+- La pelota rebota en el paddle y en los bordes de la ventana.
+- Debes destruir todos los bloques para ganar el juego.
+- Cada bloque destruido suma puntos.
+- Algunos bloques amarillos generan una pelota extra cuando los destruyes.
+- Tienes 3 vidas para completar el juego.
+- Si la pelota cae al fondo y no hay otra pelota, perderás una vida y el juego continuará con una nueva pelota.
+- El juego termina cuando se acaben las vidas (¡perdiste!) o cuando destruyas todos los bloques (¡ganaste!).
 
 ---
 
