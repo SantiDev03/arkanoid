@@ -50,7 +50,7 @@ python app.py
 *Pantalla principal con el menú.*
 
 ![Gameplay](assets/images/capturas_juegos/gameplay_1.jpeg)
-![Gameplay](assets/images/capturas_juegos/gameplay_12.jpeg)
+![Gameplay](assets/images/capturas_juegos/gameplay_2.jpeg)
 *Partida en progreso mostrando la pelota, paddle y bloques.*
 
 ![Game Over](assets/images/capturas_juegos/game_over.jpeg)
