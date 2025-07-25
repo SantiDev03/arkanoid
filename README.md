@@ -55,13 +55,14 @@ python app.py
 
 ## Patrones de Diseño Utilizados
 
-| Patrón de Diseño     | Uso                                                                 |
-|----------------------|---------------------------------------------------------------------|
-| Singleton (implícito)| `screen`, `clock` usados globalmente como instancia única           |
-| Factory              | Creación masiva de bloques dentro de bucles                         |
-| Composición          | La clase `Ball` recibe paddle y bloques como dependencias externas |
-| State                | Manejo de estados (`menu`, `jugando`, `game_over`)                 |
-| Game Loop            | Bucle principal de juego con eventos, lógica y renderizado         |
+| Patrón de Diseño          | Uso en el Proyecto                                                                                                    |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **State**                 | Gestión explícita de estados del juego (`menu`, `jugando`, `game_over`, etc.) para controlar la lógica y renderizado. |
+| **Singleton (implícito)** | Uso de instancias únicas globales como `screen` y `clock` para manejar la ventana y la sincronización del juego.      |
+| **Factory**               | Creación dinámica y masiva de bloques con bucles, facilitando la generación del escenario de juego.                   |
+| **Composición**           | Inyección de dependencias en objetos, como `Ball` recibiendo referencias a `paddle`, `blocks` y grupos de sprites.    |
+| **Game Loop**             | Bucle principal que maneja eventos, actualiza estados y renderiza cada fotograma.                                     |
+| **Event-driven**          | Manejo de eventos de Pygame para interacción con el usuario, como clicks y teclas presionadas.                        |
 
 ---
 
