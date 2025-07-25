@@ -20,7 +20,7 @@
 
 1. Clona el repositorio:
 ```bash
-git clone https://github.com/tu_usuario/argenoid.git
+git clone https://github.com/SantiDev03/arkanoid.git
 ```
 
 2. Instala dependencias:
