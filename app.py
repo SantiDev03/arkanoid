@@ -6,6 +6,8 @@ from paddle import Paddle
 from ball import Ball
 from block import Block
 import os
+from datetime import datetime
+
 pygame.init() #inicializamos el juego
 pygame.mixer.init()
 
@@ -56,17 +58,50 @@ except pygame.error as e:
 pelota_image_path = os.path.join(script_dir, "assets","images", "pelota.png")
 pelota_ball_image = None
 try:
-    # Carga la imagen y la convierte para optimización
     pelota_ball_image = pygame.image.load(pelota_image_path).convert_alpha() 
-    # Escala la imagen al tamaño deseado para la pelota (ej. 15x15 píxeles)
     pelota_ball_image = pygame.transform.scale(pelota_ball_image, (35, 35))
-
     print(f"Imagen del mate cargada exitosamente para la pelota: {pelota_image_path}")
 except pygame.error as e:
     print(f"ERROR: Pygame no pudo cargar la imagen del mate para la pelota. Mensaje: {e}")
     print(f"Asegúrate de que el archivo 'pelota.png' esté en la carpeta 'assets'.")
     print("La pelota se dibujará como un círculo blanco.")
-    # Si la imagen no se carga, mate_ball_image seguirá siendo None.
+
+#FUNCION PARA GUARDAR Y MOSTRAR PUNTAJES EN PANTALLA
+def mostrar_game_over_en_pantalla(score):
+    ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    linea = f"{ahora} - Puntaje: {score}\n"
+
+    with open("scores.txt", "a") as f:
+        f.write(linea)
+
+    # Fondo negro o el mismo fondo si está cargado
+    if background_image:
+        screen.blit(background_image, (0, 0))
+    else:
+        screen.fill(BLACK)
+
+    # Mostrar GAME OVER
+    game_over_text = font.render("GAME OVER", True, (255, 0, 0))
+    screen.blit(game_over_text, (WIDTH // 2 - 100, 100))
+
+    # Mostrar puntaje actual
+    actual_text = font.render(f"Tu puntaje: {score}", True, (255, 255, 255))
+    screen.blit(actual_text, (WIDTH // 2 - 120, 150))
+
+    # Leer últimos 5 puntajes del archivo
+    try:
+        with open("scores.txt", "r") as f:
+            lineas = f.readlines()
+            ultimos = lineas[-5:] if len(lineas) >= 5 else lineas
+            for i, l in enumerate(ultimos):
+                t = font.render(l.strip(), True, (255, 255, 255))
+                screen.blit(t, (WIDTH // 2 - 200, 220 + i * 30))
+    except FileNotFoundError:
+        t = font.render("No hay puntajes previos.", True, (255, 255, 255))
+        screen.blit(t, (WIDTH // 2 - 150, 220))
+
+    pygame.display.flip()
+    pygame.time.wait(6000)  # Esperamos 6 segundos para que lo lea
 
 #CREAMOS LOS GRUPOS (con esto podemos manejar muchos objetos a la vez)
 all_sprites = pygame.sprite.Group()
@@ -79,7 +114,7 @@ all_sprites.add(paddle)
 
 for row in range(5):
     for col in range(10):
-        block = Block(60 + col * 70, 40 + row * 30) #creamos el bloque en una determinada posicion, que depende del indice de la fila y de la columna
+        block = Block(60 + col * 70, 40 + row * 30) #creamos el bloque en una determinada posicion
         all_sprites.add(block)
         blocks.add(block)
 
@@ -91,21 +126,20 @@ balls.add(ball)
 
 running = True
 while running:
-    clock.tick(FPS) #con esto hacemos que el bucle se ejecute 60 veces por segundo, para evitar que el programa vaya rapido o ande mal
+    clock.tick(FPS) #con esto hacemos que el bucle se ejecute 60 veces por segundo
     keys = pygame.key.get_pressed() #esto es para mover las flechas
 
-    for event in pygame.event.get(): #aca verificamos si estamos haciendo
-        if event.type == pygame.QUIT: #si el evento es QUIT se cierra el juego
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             running = False
 
-    paddle.update(keys) # con esto verificamos si se mueve la paleta
+    paddle.update(keys)
     for ball in list(balls):
-        result = ball.update()  # Acá guardás el resultado
+        result = ball.update()
         if result == 'block_destroyed':
             score += 10
 
-    #esto es para crear pelotas nuevas
-    #esto despues se tiene que cambiar, cuando la pelota sea 0 se tiene que quitar una vida o hace un game over
+    # cuando no hay pelotas se pierde una vida
     if len(balls) == 0:
         lives -= 1
         if lives > 0:
@@ -113,21 +147,22 @@ while running:
             all_sprites.add(new_ball)
             balls.add(new_ball)
         else:
-            print("GAME OVER")
+            mostrar_game_over_en_pantalla(score)
             running = False
 
-    #dibujamos los elementos de la pantalla
-    if background_image: # Si la imagen de fondo se cargó correctamente
-        screen.blit(background_image, (0, 0)) # Dibujamos la imagen de fondo en la posición (0,0)
+    #dibujamos
+    if background_image:
+        screen.blit(background_image, (0, 0))
     else:
-        screen.fill(BLACK) # Si no hay imagen, el fondo sigue siendo negro
+        screen.fill(BLACK)
 
-    all_sprites.draw(screen) #dibujamos el escenario 
+    all_sprites.draw(screen)
     lives_color = (255, 0, 0) if lives <= 1 else (255, 255, 255)
     score_text = font.render(f"Puntaje: {score}", True, (255, 255, 255))
     lives_text = font.render(f"Vidas: {lives}", True, lives_color)
     screen.blit(score_text, (10, 10))
     screen.blit(lives_text, (WIDTH - 130, 10))
-    pygame.display.flip()  #actualizamos la pantalla
+    pygame.display.flip()
 
-pygame.quit() #cerramos el juego
+pygame.quit()
+print("Bye mundo")
