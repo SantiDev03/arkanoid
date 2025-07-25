@@ -10,12 +10,10 @@ from block import Block
 pygame.init()
 pygame.mixer.init()
 
-# Configurar pantalla y reloj
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Argenoid")
 clock = pygame.time.Clock()
 
-# Variables de juego
 score = 0
 lives = 3
 font = pygame.font.SysFont(None, 36)
@@ -32,7 +30,7 @@ negro = (0, 0, 0)
 oro = (212, 175, 55)
 gris_oscuro = (150, 150, 150)
 
-# Soles animados (para el menú)
+# Soles animados
 soles = [[random.randint(0, WIDTH), random.randint(0, HEIGHT), random.randint(3, 5), random.randint(180, 255)] for _ in range(100)]
 
 def dibujar_sol(pantalla, x, y, radio, brillo):
@@ -44,12 +42,12 @@ def dibujar_sol(pantalla, x, y, radio, brillo):
         dy = int(radio * 1.8 * pygame.math.Vector2(1, 0).rotate(angulo).y)
         pygame.draw.line(pantalla, color, (x, y), (x + dx, y + dy), 1)
 
-# def dibujar_soles():
-#     for sol in soles:
-#         x, y, radio, brillo = sol
-#         dibujar_sol(screen, x, y, radio, brillo)
-#         sol[3] += random.randint(-15, 15)
-#         sol[3] = max(150, min(255, sol[3]))
+def dibujar_soles():
+    for sol in soles:
+        x, y, radio, brillo = sol
+        dibujar_sol(screen, x, y, radio, brillo)
+        sol[3] += random.randint(-15, 15)
+        sol[3] = max(150, min(255, sol[3]))
 
 def crear_boton(texto, x_center, y_pos, ancho_boton, alto_boton, tam_fuente):
     fuente_boton = pygame.font.SysFont(None, tam_fuente)
@@ -59,19 +57,24 @@ def crear_boton(texto, x_center, y_pos, ancho_boton, alto_boton, tam_fuente):
     texto_rect = texto_render.get_rect(center=boton_rect.center)
     return boton_rect, texto_render, texto_rect
 
-# Botones
 boton_play_rect, texto_play, rect_texto_play = crear_boton("PLAY", WIDTH // 2, HEIGHT // 2 + 140, 200, 50, 40)
 boton_reiniciar_rect, texto_reiniciar, rect_texto_reiniciar = crear_boton("REINICIAR", WIDTH // 2 + 100, HEIGHT // 2 + 200, 180, 40, 30)
 boton_salir_rect, texto_salir, rect_texto_salir = crear_boton("SALIR", WIDTH // 2 - 100, HEIGHT // 2 + 200, 160, 40, 35)
 
-# Títulos
-texto_titulo_menu = fuente_grande.render("\u2600\ufe0f Bienvenido Argenoid \u2600\ufe0f", True, negro)
+texto_titulo_menu = fuente_grande.render("🧉 Bienvenido Argenoid 🧉", True, negro)
 rect_titulo_menu = texto_titulo_menu.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 200))
 texto_game_over = fuente_grande.render("GAME OVER", True, negro)
 rect_game_over = texto_game_over.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 160))
 
-# Cargar imagen y sonidos
+# Assets
 script_dir = os.path.dirname(__file__)
+bandera_image = None
+try:
+    bandera_image = pygame.image.load(os.path.join(script_dir, "assets", "images", "bandera_argentina.jpg")).convert()
+    bandera_image = pygame.transform.scale(bandera_image, (WIDTH, HEIGHT))
+except:
+    bandera_image = None
+
 background_image = None
 try:
     background_image = pygame.image.load(os.path.join(script_dir, "assets", "images", "messi.jpg")).convert()
@@ -98,7 +101,7 @@ try:
 except:
     pass
 
-# Sprites
+# Grupos
 all_sprites = pygame.sprite.Group()
 blocks = pygame.sprite.Group()
 balls = pygame.sprite.Group()
@@ -116,7 +119,6 @@ ball = Ball(paddle, blocks, all_sprites, balls, ball_image=pelota_ball_image, hi
 all_sprites.add(ball)
 balls.add(ball)
 
-# Bucle principal
 running = True
 while running:
     clock.tick(FPS)
@@ -129,8 +131,8 @@ while running:
             running = False
 
     if estado == "menu":
-        screen.blit(background_image, (0, 0)) if background_image else screen.fill(BLACK)
-        #dibujar_soles()
+        screen.blit(bandera_image, (0, 0)) if bandera_image else screen.fill(BLACK)
+        dibujar_soles()
         screen.blit(texto_titulo_menu, rect_titulo_menu)
         color_play = gris_oscuro if boton_play_rect.collidepoint(mouse_pos) else oro
         pygame.draw.rect(screen, color_play, boton_play_rect, border_radius=10)
@@ -165,8 +167,8 @@ while running:
         screen.blit(lives_text, (WIDTH - 130, 10))
 
     elif estado == "game_over":
-        screen.blit(background_image, (0, 0)) if background_image else screen.fill(BLACK)
-        #dibujar_soles()
+        screen.blit( bandera_image, (0, 0)) if bandera_image else screen.fill(BLACK)
+        dibujar_soles()
         screen.blit(texto_game_over, rect_game_over)
         texto_puntaje_final = fuente_media.render(f"Puntaje final: {score}", True, negro)
         rect_puntaje_final = texto_puntaje_final.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
