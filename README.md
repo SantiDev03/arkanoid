@@ -46,7 +46,7 @@ python app.py
 
 ## Recursos Usados
 
-- **Gráficos**: Pelota, fondo bandera, animación de soles
+- **Gráficos**: Pelota de fútbol, fondo bandera, fondo de Messi y bloques con texturas realistas
 - **Sonidos**:
   - Himno Nacional Argentino (loop en el menú)
   - Efectos tipo Arkanoid al romper bloques
