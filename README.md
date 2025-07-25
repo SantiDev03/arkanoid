@@ -61,6 +61,14 @@ python app.py
 
 ---
 
+## Demo del Juego 🎮
+
+[![Ver Video en YouTube](https://img.youtube.com/vi/e9hnXtgwrak/0.jpg)](https://www.youtube.com/watch?v=e9hnXtgwrak)
+
+*Mirá cómo se juega Argenoid en este video demostrativo.*
+
+---
+
 ## Reglas del Juego
 
 - Usa las flechas izquierda y derecha para mover el paddle.
