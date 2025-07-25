@@ -44,6 +44,23 @@ python app.py
 
 ---
 
+## Capturas del Juego
+
+![Pantalla Principal](assets/images/capturas_juego/menu.jpeg)
+*Pantalla principal con el menú.*
+
+![Gameplay](assets/images/capturas_juego/gameplay_1.jpeg)
+![Gameplay](assets/images/capturas_juego/gameplay_12.jpeg)
+*Partida en progreso mostrando la pelota, paddle y bloques.*
+
+![Game Over](assets/images/capturas_juego/game_over.jpeg)
+*Pantalla de Game Over.*
+
+![Ver Puntajes](assets/images/capturas_juego/view_score.jpeg)
+*Pantalla de Puntajes.*
+
+---
+
 ## Recursos Usados
 
 - **Gráficos**: Pelota de fútbol, fondo bandera, fondo de Messi y bloques con texturas realistas

@@ -118,7 +118,7 @@ def mostrar_puntajes():
             ultimos = lineas[-5:] if len(lineas) >= 5 else lineas
         for i, l in enumerate(ultimos):
             t = font.render(l.strip(), True, negro)
-            screen.blit(t, (WIDTH // 2 - 200, 250 + i * 40))
+            screen.blit(t, (WIDTH // 3.5 - 200, 210 + i * 40))
     except:
         t = font.render("No hay puntajes previos.", True, negro)
         screen.blit(t, (WIDTH // 2 - 150, 250))
