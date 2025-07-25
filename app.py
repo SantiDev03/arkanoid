@@ -31,23 +31,23 @@ oro = (212, 175, 55)
 gris_oscuro = (150, 150, 150)
 
 # Soles animados
-soles = [[random.randint(0, WIDTH), random.randint(0, HEIGHT), random.randint(3, 5), random.randint(180, 255)] for _ in range(100)]
+# soles = [[random.randint(0, WIDTH), random.randint(0, HEIGHT), random.randint(3, 5), random.randint(180, 255)] for _ in range(100)]
 
-def dibujar_sol(pantalla, x, y, radio, brillo):
-    color = (brillo, max(brillo - 50, 0), 0)
-    pygame.draw.circle(pantalla, color, (x, y), radio)
-    for i in range(8):
-        angulo = i * 45
-        dx = int(radio * 1.8 * pygame.math.Vector2(1, 0).rotate(angulo).x)
-        dy = int(radio * 1.8 * pygame.math.Vector2(1, 0).rotate(angulo).y)
-        pygame.draw.line(pantalla, color, (x, y), (x + dx, y + dy), 1)
+# def dibujar_sol(pantalla, x, y, radio, brillo):
+#     color = (brillo, max(brillo - 50, 0), 0)
+#     pygame.draw.circle(pantalla, color, (x, y), radio)
+#     for i in range(8):
+#         angulo = i * 45
+#         dx = int(radio * 1.8 * pygame.math.Vector2(1, 0).rotate(angulo).x)
+#         dy = int(radio * 1.8 * pygame.math.Vector2(1, 0).rotate(angulo).y)
+#         pygame.draw.line(pantalla, color, (x, y), (x + dx, y + dy), 1)
 
-def dibujar_soles():
-    for sol in soles:
-        x, y, radio, brillo = sol
-        dibujar_sol(screen, x, y, radio, brillo)
-        sol[3] += random.randint(-15, 15)
-        sol[3] = max(150, min(255, sol[3]))
+# def dibujar_soles():
+#     for sol in soles:
+#         x, y, radio, brillo = sol
+#         dibujar_sol(screen, x, y, radio, brillo)
+#         sol[3] += random.randint(-15, 15)
+#         sol[3] = max(150, min(255, sol[3]))
 
 def crear_boton(texto, x_center, y_pos, ancho_boton, alto_boton, tam_fuente):
     fuente_boton = pygame.font.SysFont(None, tam_fuente)
@@ -132,7 +132,7 @@ while running:
 
     if estado == "menu":
         screen.blit(bandera_image, (0, 0)) if bandera_image else screen.fill(BLACK)
-        dibujar_soles()
+        #dibujar_soles()
         screen.blit(texto_titulo_menu, rect_titulo_menu)
         color_play = gris_oscuro if boton_play_rect.collidepoint(mouse_pos) else oro
         pygame.draw.rect(screen, color_play, boton_play_rect, border_radius=10)
@@ -168,7 +168,7 @@ while running:
 
     elif estado == "game_over":
         screen.blit( bandera_image, (0, 0)) if bandera_image else screen.fill(BLACK)
-        dibujar_soles()
+        #dibujar_soles()
         screen.blit(texto_game_over, rect_game_over)
         texto_puntaje_final = fuente_media.render(f"Puntaje final: {score}", True, negro)
         rect_puntaje_final = texto_puntaje_final.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
